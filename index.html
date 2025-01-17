@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bannigan McDade | Management Consulting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #2A1B3D;
+            --secondary: #FF6B6B;
+            --accent: #FFD93D;
+            --light: #F8F9FA;
+            --text-dark: #2A1B3D;
+            --text-light: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary), #44318D);
+            --gradient-accent: linear-gradient(135deg, var(--secondary), #FF8E8E);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light);
+        }
+
+        .nav {
+            background: var(--gradient);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: var(--gradient);
+            color: var(--text-light);
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 107%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 4rem 0;
+            justify-content: center;
+        }
+
+        .expertise-card {
+            flex: 0 1 calc(25% - 1.5rem);
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.15);
+            border-color: var(--secondary);
+        }
+
+        .expertise-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .expertise-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .expertise-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .expertise-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .callout {
+            background: white;
+            padding: 4rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 107, 107, 0.1);
+        }
+
+        .callout h2 {
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.15);
+        }
+
+        .testimonial img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial:hover img {
+            transform: scale(1.02);
+        }
+
+        .contact {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: var(--gradient);
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 107%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--secondary);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.25);
+            background: #ff5252;
+        }
+
+        .btn.btn-light {
+            background: white;
+            color: var(--secondary);
+        }
+
+        .btn.btn-light:hover {
+            background: var(--light);
+            border-color: var(--secondary);
+        }
+
+        input[type="email"] {
+            background: rgba(255,255,255,0.95);
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        .stats h3 {
+            color: var(--secondary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(255, 107, 107, 0.1);
+        }
+
+        .stats p {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .feature-list h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-list i {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .expertise-card {
+                flex: 0 1 calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .container {
+                padding: 2rem;
+            }
+
+            .callout {
+                padding: 2rem;
+            }
+
+            .expertise-card {
+                flex: 0 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="nav-brand">Bannigan McDade</a>
+        <ul class="nav-menu">
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#speaking">Speaking</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <section class="hero">
+        <h1>Bannigan McDade</h1>
+        <p>Management Consulting for the Modern Workplace</p>
+        <p style="margin-top: 1rem; font-size: 1.1rem;">Transform your accidental managers into confident leaders with proven, practical tactics</p>
+    </section>
+
+    <div class="container">
+        <section class="expertise">
+            <div class="expertise-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Practical Management Solutions</h3>
+                <p>Transform accidental managers into effective leaders with proven tactics that work in the real world. Get clear, pragmatic guidance for immediate implementation, focused on outcomes rather than theory.</p>
+            </div>
+            <div class="expertise-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Performance Management</h3>
+                <p>Learn how to set clear expectations, provide effective feedback, and develop your team members through structured processes. Master the art of continuous feedback and quarterly reviews that drive measurable results.</p>
+            </div>
+            <div class="expertise-card">
+                <i class="fas fa-laptop-house"></i>
+                <h3>Remote Team Excellence</h3>
+                <p>Master the unique challenges of managing remote teams. Build cohesion, maintain productivity, and foster engagement in distributed workplaces using proven communication and management strategies.</p>
+            </div>
+            <div class="expertise-card">
+                <i class="fas fa-users-gear"></i>
+                <h3>Hiring & Onboarding</h3>
+                <p>Build effective teams from day one with proven recruitment and onboarding strategies. Learn how to identify top talent, create structured onboarding processes, and set new hires up for success.</p>
+            </div>
+        </section>
+
+        <section class="stats" style="text-align: center; margin: 4rem 0; background: white; padding: 4rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid rgba(255, 107, 107, 0.1);">
+            <h2 style="color: var(--text-dark); margin-bottom: 2rem; font-size: 2.5rem; font-weight: 700;">Proven Track Record</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
+                <div>
+                    <h3>20+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div>
+                    <h3>100+</h3>
+                    <p>Companies Transformed</p>
+                </div>
+                <div>
+                    <h3>1000+</h3>
+                    <p>Managers Trained</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="callout">
+            <h2>Why Work With Me?</h2>
+            <p>With over 20 years of management experience across various industries, I specialize in transforming overwhelmed managers into confident leaders. My approach is practical, results-oriented, and tailored to your specific challenges.</p>
+            <p style="margin-top: 1rem;">I focus on implementable solutions that work in the real world, not just theory. My methods have been tested and refined across numerous organizations, helping teams achieve measurable improvements in performance and engagement.</p>
+            <div class="feature-list" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; text-align: left;">
+                <div>
+                    <h4><i class="fas fa-check-circle"></i> Clear, Actionable Guidance</h4>
+                    <p>Step-by-step tactics you can implement immediately</p>
+                </div>
+                <div>
+                    <h4><i class="fas fa-check-circle"></i> Proven Framework</h4>
+                    <p>Based on 20+ years of real-world management experience</p>
+                </div>
+                <div>
+                    <h4><i class="fas fa-check-circle"></i> Measurable Results</h4>
+                    <p>Focus on outcomes and performance metrics that matter</p>
+                </div>
+            </div>
+            <a href="#contact" class="btn">Schedule a Consultation</a>
+        </section>
+
+        <section class="testimonials">
+            <div class="testimonial">
+                <img src="https://images.pexels.com/photos/6995109/pexels-photo-6995109.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Client testimonial">
+                <p>"Bannigan's practical approach to management transformed our team. His strategies are clear, implementable, and most importantly, they work."</p>
+                <p><strong>- Sarah Chen, CEO</strong></p>
+            </div>
+            <div class="testimonial">
+                <img src="https://images.pexels.com/photos/7491549/pexels-photo-7491549.jpeg" alt="Client testimonial">
+                <p>"The frameworks and tactics Bannigan provided helped us scale our management capabilities alongside our rapid growth."</p>
+                <p><strong>- Michael Rodriguez, CTO</strong></p>
+            </div>
+        </section>
+
+        <section class="book-download" style="background: var(--gradient); color: white; padding: 4rem; border-radius: 16px; margin: 4rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center; position: relative; overflow: hidden;">
+            <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 30% 107%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%);"></div>
+            <div>
+                <h2 style="margin-bottom: 1.5rem; font-size: 2.5rem; font-weight: 700; position: relative;">Get the Book: Managing 180</h2>
+                <p style="margin-bottom: 1.5rem;">Download your free copy of the practical guide that's helping managers worldwide transform their teams. Learn step-by-step tactics for effective management, from handling performance reviews to building remote teams.</p>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: var(--accent);"></i>
+                        <span>Practical management tactics</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: var(--accent);"></i>
+                        <span>Real-world examples</span>
+                    </li>
+                    <li style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-check-circle" style="color: var(--accent);"></i>
+                        <span>Actionable frameworks</span>
+                    </li>
+                </ul>
+                <form style="max-width: 400px;" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Enter your email" style="width: 100%; padding: 0.8rem; border-radius: 4px; border: none; margin-bottom: 1rem;">
+                    <button type="submit" class="btn btn-light" style="width: 100%;">Download Free PDF</button>
+                </form>
+            </div>
+            <div style="text-align: center;">
+                <img src="images/book.png" alt="Managing 180 Book Cover" style="max-width: 300px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border-radius: 12px; transform: rotate(2deg);">
+            </div>
+        </section>
+    </div>
+
+    <section id="speaking" class="container" style="background: white; padding: 4rem 2rem; border-radius: 16px; margin: 4rem auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+        <h2 style="color: var(--text-dark); margin-bottom: 2rem; font-size: 2.5rem; font-weight: 700; text-align: center;">Speaking Engagements</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">Engaging keynotes and workshops that transform management thinking and provide actionable strategies for immediate implementation.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div style="background: var(--light); padding: 2rem; border-radius: 12px;">
+                <i class="fas fa-microphone-lines" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Keynote Speaking</h3>
+                <p>Inspiring talks on modern management practices, team building, and leadership development.</p>
+            </div>
+            <div style="background: var(--light); padding: 2rem; border-radius: 12px;">
+                <i class="fas fa-users-rectangle" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Workshops</h3>
+                <p>Interactive sessions focused on practical skill development and immediate implementation strategies.</p>
+            </div>
+            <div style="background: var(--light); padding: 2rem; border-radius: 12px;">
+                <i class="fas fa-building-user" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Corporate Training</h3>
+                <p>Customized programs designed to address your organization's specific management challenges.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="case-studies" class="container">
+        <h2 style="color: var(--text-dark); margin-bottom: 2rem; font-size: 2.5rem; font-weight: 700; text-align: center;">Case Studies</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">Real-world examples of how our management consulting transforms teams and drives results.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                <div style="background: var(--light); height: 200px; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-rocket" style="font-size: 3rem; color: var(--secondary);"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Tech Startup Scale-up</h3>
+                <p style="margin-bottom: 1rem;">Helped a rapidly growing tech startup develop their first-time managers and establish scalable management practices.</p>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>300% improvement in team productivity</li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>Reduced turnover by 40%</li>
+                    <li><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>Successful expansion to 3 new markets</li>
+                </ul>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                <div style="background: var(--light); height: 200px; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-building" style="font-size: 3rem; color: var(--secondary);"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Enterprise Leadership Development</h3>
+                <p style="margin-bottom: 1rem;">Implemented a comprehensive management training program for a Fortune 500 company.</p>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>Trained 500+ managers</li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>25% increase in employee engagement</li>
+                    <li><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>15% improvement in project delivery</li>
+                </ul>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                <div style="background: var(--light); height: 200px; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-laptop-house" style="font-size: 3rem; color: var(--secondary);"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Remote Team Transformation</h3>
+                <p style="margin-bottom: 1rem;">Guided a traditional office-based company through their transition to remote-first operations.</p>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>Successful transition of 200+ employees</li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>20% increase in productivity</li>
+                    <li><i class="fas fa-check" style="color: var(--secondary); margin-right: 0.5rem;"></i>95% employee satisfaction rate</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Ready to Transform Your Management Approach?</h2>
+        <p>Let's discuss how I can help your organization develop stronger managers and more effective teams.</p>
+        <a href="mailto:contact@bannigan.com" class="btn btn-light">Get in Touch</a>
+    </section>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <footer style="background: white; padding: 2rem; text-align: center; margin-top: 4rem; border-top: 1px solid rgba(0,0,0,0.1);">
+        <p>&copy; 2025 Bannigan McDade. All rights reserved.</p>
+    </footer>
+</body>
+</html>
